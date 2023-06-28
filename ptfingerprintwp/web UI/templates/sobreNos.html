@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PT Fingerprint WP</title>
+    <link rel="shortcut icon" href="./icon.png" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <nav>
+        <div class="logo">
+          <img
+            src="{{ url_for('static', filename='images/icon.png') }}"
+            alt="icon"
+            height="150px"
+          />
+
+          <p>PT Fingerprint WP</p>
+        </div>
+        <ul class="menu">
+          <li><a href="{{ url_for('index') }}">Clawer</a></li>
+          <li><a href="{{ url_for('scan_wp') }}">scan WP</a></li>
+          <li><a href="{{ url_for('sobrenos') }}">Sobre Nós</a></li>
+          <li><a href="{{ url_for('contato') }}">Contactar</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    {% block content %}
+    <main class="main">
+  
+      <h1 class="titulo">Nossa equipe</h1>
+
+      <div class="row">
+        <div class="col-md-4 col-sm-6">
+          <div class="our-team">
+            <div class="team_img">
+              <img
+                src="{{ url_for('static', filename='images/romilson.jpg') }}"
+                alt="romilson"
+                height="150px"
+              />
+              <ul class="social">
+                <li>
+                  <a href="#"><i class="fab fa-facebook"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fab fa-linkedin"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fab fa-google-plus"></i></a>
+                </li>
+              </ul>
+            </div>
+            <div class="team-content">
+              <h3 class="title">Romilson Monteiro</h3>
+              <span class="post">Engenheiro de software</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6">
+          <div class="our-team">
+            <div class="team_img">
+              <img
+                src="{{ url_for('static', filename='images/marco.jpg') }}"
+                alt="Marco"
+                height="150px"
+              />
+              <ul class="social">
+                <li>
+                  <a href="#"><i class="fab fa-facebook"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fab fa-linkedin"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fab fa-google-plus"></i></a>
+                </li>
+              </ul>
+            </div>
+            <div class="team-content">
+              <h3 class="title">Marco Da Luz</h3>
+              <span class="post">Engenheiro de Redes</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <div class="our-team">
+            <div class="team_img">
+              <img
+                src="{{ url_for('static', filename='images/francisco.jpg') }}"
+                alt="francisco"
+                height="150px"
+              />
+              <ul class="social">
+                <li>
+                  <a href="#"><i class="fab fa-facebook"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fab fa-linkedin"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fab fa-google-plus"></i></a>
+                </li>
+              </ul>
+            </div>
+            <div class="team-content">
+              <h3 class="title">Francisco Oliveira</h3>
+              <span class="post">Engenheiro de Redes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>© 2023 WP Fingerprint PT. Todos os direitos reservados.</p>
+      </div>
+      <ul class="social-icons">
+        <li>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+        </li>
+        <li>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </li>
+        <li>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </li>
+      </ul>
+      {% endblock %}
+    </footer>
+  </body>
+</html>

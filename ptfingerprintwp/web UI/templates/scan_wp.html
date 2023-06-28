@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Verificador de WordPress - Descubra se o website é baseado em WordPress
+    </title>
+    <link rel="shortcut icon" href="./icon.png" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/loading_styles.css') }}"
+    />
+  </head>
+
+  <body>
+    <header class="header">
+      <nav>
+        <div class="logo">
+          <img
+            src="{{ url_for('static', filename='images/icon.png') }}"
+            alt="icon"
+            height="150px"
+          />
+
+          <p>PT Fingerprint WP</p>
+        </div>
+        <ul class="menu">
+          <li><a href="{{ url_for('index') }}">Clawer</a></li>
+          <li><a href="{{ url_for('scan_wp') }}">scan WP</a></li>
+          <li><a href="{{ url_for('sobrenos') }}">Sobre Nós</a></li>
+          <li><a href="{{ url_for('contato') }}">Contactar</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      {% if results == 'home' %}
+      <section class="hero" id="hero">
+        <div class="container" id="container">
+          <h1>Verifique se o website é baseado em WordPress</h1>
+        <div  id="scan_container" style="display: block">
+            <p>
+            Insira o URL do website abaixo para verificar se ele está usando o
+            WordPress.
+          </p>
+          <form id="website-form" method="POST">
+            <input
+              type="text"
+              id="website-input"
+              name="domain"
+              placeholder="Insira o domínio do website"
+              required
+            />
+            <button
+              type="submit"
+              class="btn"
+              id="scan-btn"
+              onclick="disableButton()"
+            >
+              Verificar
+            </button>
+          </form>
+        </div>
+        </div>
+        <div class="load"  id="scanning-message" style="display: none">
+          <h3>Escaneando o website...</h3>
+          <div  class="ring">
+            <p id="domain-placeholder" style="color: rgb(238, 12, 219); "></p>
+            <span></span>
+          </div>
+        </div>
+      </section>
+      {% elif results.wp == 'notFound' %}
+      <div class="result-card">
+        <div class="result-header wp">
+          <h2 class="titulo">-----------nothing found--------</h2>
+        </div>
+      </div>
+      {% else %}
+      <div class="report">
+        <div class="report-header">
+          <h2 class="titulo">Resultado da Verificação</h2>
+        </div>
+        <div class="result-card">
+          {% if results.wp %}
+          <h1 class="titulo" style="color: rgb(7, 253, 7)">
+            {{ results.domain }}
+          </h1>
+          <div class="result-header wp">
+            <i class="fas fa-check-circle"></i>
+            <h3>O website é baseado em WordPress</h3>
+            <h2>WordPress {{ results.version }}</h2>
+          </div>
+          <div class="result-details">
+            <p><strong class="wp_titu2">IP:</strong> {{ results.ip }}</p>
+            <p>
+              <strong class="wp_titu2">Domínio:</strong> {{ results.domain }}
+            </p>
+            <p>
+              <strong class="wp_titu2">Data de criação:</strong> {{
+              results.nameServers.creation_date }}
+            </p>
+            <p>
+              <strong class="wp_titu2">Data de expiração:</strong> {{
+              results.nameServers.expiration_date }}
+            </p>
+            <h3 class="wp_title">Registrante</h3>
+            <p>
+              <strong class="wp_titu2">Nome:</strong> {{
+              results.nameServers.registrant_name }}
+            </p>
+            <p>
+              <strong class="wp_titu2">Endereço:</strong> {{
+              results.nameServers.registrant_street }}, {{
+              results.nameServers.registrant_city }}, {{
+              results.nameServers.registrant_postal_code }}
+            </p>
+            <p>
+              <strong class="wp_titu2">E-mail:</strong> {{
+              results.nameServers.registrant_email }}
+            </p>
+            <h3 class="wp_title">Administrador</h3>
+            <p>
+              <strong class="wp_titu2">Nome:</strong> {{
+              results.nameServers.admin }}
+            </p>
+            <p>
+              <strong class="wp_titu2">Endereço:</strong> {{
+              results.nameServers.admin_street }}, {{
+              results.nameServers.admin_city }}, {{
+              results.nameServers.admin_postal_code }}
+            </p>
+            <p>
+              <strong class="wp_titu2">E-mail:</strong> {{
+              results.nameServers.admin_email }}
+            </p>
+            <h3 class="wp_title">Servidores de Nomes</h3>
+            <ul>
+              {% for server in results.nameServers.name_servers %}
+              <li>{{ server }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% else %}
+          <h1 class="titulo" style="color: rgb(184, 0, 0)">
+            {{ results.domain }}
+          </h1>
+          <div class="result-header not-wp">
+            <i class="fas fa-times-circle"></i>
+            <h3>O website não é baseado em WordPress, ou já está escondido</h3>
+          </div>
+          <div class="result-details">
+            <h2 class="not-wp_title">Detalhes do domínio</h2>
+            <p>
+              <strong class="not-wp_titu2">Domínio:</strong> {{ results.domain
+              }}
+            </p>
+            <p>
+              <strong class="not-wp_titu2">Data de criação:</strong> {{
+              results.nameServers.creation_date }}
+            </p>
+            <p>
+              <strong class="not-wp_titu2">Data de expiração:</strong> {{
+              results.nameServers.expiration_date }}
+            </p>
+            <h3 class="not-wp_title">Registrante</h3>
+            <p>
+              <strong class="not-wp_titu2">Nome:</strong> {{
+              results.nameServers.registrant_name }}
+            </p>
+            <p>
+              <strong class="not-wp_titu2">Endereço:</strong> {{
+              results.nameServers.registrant_street }}, {{
+              results.nameServers.registrant_city }}, {{
+              results.nameServers.registrant_postal_code }}
+            </p>
+            <p>
+              <strong class="not-wp_titu2">E-mail:</strong> {{
+              results.nameServers.registrant_email }}
+            </p>
+            <h3 class="not-wp_title">Administrador</h3>
+            <p>
+              <strong class="not-wp_titu2">Nome:</strong> {{
+              results.nameServers.admin }}
+            </p>
+            <p>
+              <strong class="not-wp_titu2">Endereço:</strong> {{
+              results.nameServers.admin_street }}, {{
+              results.nameServers.admin_city }}, {{
+              results.nameServers.admin_postal_code }}
+            </p>
+            <p>
+              <strong class="not-wp_titu2">E-mail:</strong> {{
+              results.nameServers.admin_email }}
+            </p>
+            <h3 class="not-wp_title">Servidores de Nomes</h3>
+            <ul>
+              {% for server in results.nameServers.name_servers %}
+              <li>{{ server }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>© 2023 WP Fingerprint PT. Todos os direitos reservados.</p>
+        <ul class="social-icons">
+          <li>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+    <!-- ... previous code ... -->
+
+    <script>
+      function showScanningMessage() {
+        document.getElementById("scanning-message").style.display = "block";
+      }
+    </script>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>

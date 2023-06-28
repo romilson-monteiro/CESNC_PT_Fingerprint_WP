@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PT Fingerprint WP</title>
+    <link rel="shortcut icon" href="./icon.png" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <nav>
+        <div class="logo">
+          <img
+            src="{{ url_for('static', filename='images/icon.png') }}"
+            alt="icon"
+            height="150px"
+          />
+
+          <p>PT Fingerprint WP</p>
+        </div>
+        <ul class="menu">
+          <li><a href="{{ url_for('index') }}">Clawer</a></li>
+          <li><a href="{{ url_for('scan_wp') }}">scan WP</a></li>
+          <li><a href="{{ url_for('sobrenos') }}">Sobre Nós</a></li>
+          <li><a href="{{ url_for('contato') }}">Contactar</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="contact">
+        <div class="container">
+          <h2 class="titulo">Entre em Contacto</h2>
+          <p class="subtitulo">
+            Preencha o formulário abaixo para entrar em contacto conosco.
+          </p>
+          <form class="contact-form">
+            <div class="form-group">
+              <label for="nome">Nome:</label>
+              <input type="text" id="nome" name="nome" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+              <label for="mensagem">Mensagem:</label>
+              <textarea
+                id="mensagem"
+                name="mensagem"
+                rows="4"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="btn">Enviar</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>© 2023 WP Fingerprint PT. Todos os direitos reservados.</p>
+        <ul class="social-icons">
+        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+      </ul>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

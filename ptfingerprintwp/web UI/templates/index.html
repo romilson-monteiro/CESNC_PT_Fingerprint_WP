@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PT Fingerprint WP</title>
+    <link rel="shortcut icon" href="./icon.png" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <nav>
+        <div class="logo">
+          <img
+            src="{{ url_for('static', filename='images/icon.png') }}"
+            alt="icon"
+            height="150px"
+          />
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="{{ url_for('static', filename='css/loading_styles.css') }}"
+          />
+          <p>PT Fingerprint WP</p>
+        </div>
+        <ul class="menu">
+          <li><a href="{{ url_for('index') }}">Clawer</a></li>
+          <li><a href="{{ url_for('scan_wp') }}">scan WP</a></li>
+          <li><a href="{{ url_for('sobrenos') }}">Sobre Nós</a></li>
+          <li><a href="{{ url_for('contato') }}">Contactar</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      {% if results == 'home' %}
+      <section class="hero">
+        <div class="container" id="container2" style="display: block">
+          <h1>Descubra Websites Portugueses com WordPress</h1>
+          <div id="container_hero" style="display: block">
+            <p>
+              Obtenha informações sobre a versão do WordPress utilizada em cada
+              site.
+            </p>
+            <form id="website-form" method="POST">
+              <button
+                type="submit"
+                class="btn"
+                id="btn"
+                onclick="disableButtonScam()"
+              >
+                vamos comerçar
+              </button>
+            </form>
+          </div>
+        </div>
+        <div id="scanning-message2" class="load" style="display: none">
+          <div class="ring">
+            <p>Scaning web...</p>
+            <span></span>
+          </div>
+          <h4 class="titulo">Esto pode demorar um pouco!</h4>
+        </div>
+      </section>
+      <section class="features">
+        <div class="container">
+          <div class="feature">
+            <i class="fa fa-search"></i>
+            <h2>Identificação Avançada</h2>
+            <p>
+              Utiliza técnicas avançadas para identificar websites .pt que
+              utilizam WordPress.
+            </p>
+          </div>
+          <div class="feature">
+            <i class="fa fa-fingerprint"></i>
+            <h2>Obten Fingerprint</h2>
+            <p>
+              Extrai informações sobre a versão do WordPress usada em cada
+              website identificado.
+            </p>
+          </div>
+          <div class="feature">
+            <i class="fa fa-database"></i>
+            <h2>Armazenamento de Dados</h2>
+            <p>
+              Armazene as informações coletadas em uma base de dados para
+              análise posterior.
+            </p>
+          </div>
+        </div>
+      </section>
+      {% else %}
+      <section>
+        <div class="resultados">
+          <h2>
+            Foi encontrado {{ results|length }} sites Portugueses que usan
+            WordPress
+          </h2>
+
+          <h1 class="titulo" style="color: blueviolet">Resultados do Clawer</h1>
+          <table>
+            <thead>
+              <tr>
+                <th>Domínio</th>
+                <th>IP</th>
+                <th>Version</th>
+                <th>Host</th>
+                <th>Name Servers</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for result in results %}
+              <tr>
+                <td>{{ result.domain }}</td>
+                <td>{{ result.ip }}</td>
+                <td>{{ result.version }}</td>
+                <td>{{ result.host }}</td>
+                <td>
+                  <ul>
+                    {% for name_server in result.name_servers.split(", ") %}
+                    <li  >{{ name_server }}</li>
+                    {% endfor %}
+                  </ul>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+      {% endif %}
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>© 2023 WP Fingerprint PT. Todos os direitos reservados.</p>
+        <ul class="social-icons">
+          <li>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>
